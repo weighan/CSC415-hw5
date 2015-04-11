@@ -1,20 +1,21 @@
 #include <unistd.h>
 #include <string.h>
-//posix version hw4
+//posix version hw5.race
 #include <fcntl.h>
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
 
 #define threadnum 8
-#define bytes 65536
+#define bytes 2000000
 
 char buffer[bytes];
 int countarray[128];
 
 typedef struct argue{
-	int buffstart;
-	int buffend;
+
+	int buffstart, buffend;
+
 } argue, *argues;
 
 int ascicount(void *ar);
@@ -27,8 +28,8 @@ int main(int argc, char *argv[]){
 	pthread_attr_t thread;
 	readcount = 0;
 
-	if(access(argv[1], F_OK) == 0) { // check that source file exists
-		
+	if(access(argv[1], F_OK) == 0) { // check that source file exists		
+
 		openfile = open(argv[1], O_RDONLY);
 	}
 	else{
@@ -48,8 +49,9 @@ int main(int argc, char *argv[]){
 	if(datapass == NULL){
 		printf("error with calloc\n");
 	} 
-	for(int i =0; i< threadnum; i++){
-		
+
+	for(int i =0; i< threadnum; i++){		
+
 		datapass[i]. buffstart = i * threadbyte;
 
 		if(i==threadnum-1){
@@ -57,15 +59,15 @@ int main(int argc, char *argv[]){
 		}
 		else {
 			datapass[i]. buffend = (i * threadbyte) + threadbyte;
-		}
-		
+		}		
+
 		pthread_create(&handlethreads[i], &thread, &ascicount, &datapass[i]);
-	}
-	
+	}	
+
 	for(int i =0; i<threadnum; i++){
 		pthread_join(handlethreads[i], NULL);
 		printf("test\n");
-		
+
 	}
 
 	for(int i = 0; i<128;i++){

@@ -1,6 +1,6 @@
 #include <unistd.h>
 #include <string.h>
-//posix version hw4
+//posix version hw5.2
 #include <fcntl.h>
 #include <stdio.h>
 #include <pthread.h>

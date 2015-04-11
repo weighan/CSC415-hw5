@@ -3,16 +3,14 @@
 #include <stdio.h>
 #include <tchar.h>
 
-#define threadnum 4
-#define bytes 65536
+#define threadnum 8
+#define bytes 2000000
 
 char buffer[bytes];
 int countarray[128];
 
 typedef struct argue{
-	int buffstart;
-	int buffend;
-
+	int buffstart, buffend;
 } argue, *argues;
 
 DWORD WINAPI ascicount(void *ar);
@@ -55,10 +53,10 @@ int main(int argc, char *argv[]){
 	
 	for(int i = 0; i<128;i++){
 		if(i<33 || i>126){
-			printf("%d occurences of 0x%x\n", threadnum[i], i);
+			printf("%d occurences of 0x%x\n", countarray[i], i);
 		}
 		else {
-			printf("%d occurences of %c\n", threadnum[i], i);
+			printf("%d occurences of %c\n", countarray[i], i);
 		}
 	}
 }
