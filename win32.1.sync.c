@@ -57,6 +57,7 @@ int main(int argc, char *argv[]){
 	for(int i =0; i<threadnum;i++){
 		CloseHandle(handlethreads[i]);
 	}
+	CloseHandle(mutex);
 	
 	for(int i = 0; i<128;i++){
 		if(i<33 || i>126){
@@ -77,8 +78,7 @@ DWORD WINAPI ascicount(LPVOID ar){
 		if(waitresult == WAIT_OBJECT_0){
 			countarray[buffer[i]]++;
 			ReleaseMutex(mutex);			
-		}
-		
+		}		
 	}
 	return 0;
 }
